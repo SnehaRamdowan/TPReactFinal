@@ -1,0 +1,177 @@
+### Read an existing product
+GET http://localhost:3000/api/produits/1
+
+### Invalid ID
+GET http://localhost:3000/api/produits/abc
+
+### Product not found
+GET http://localhost:3000/api/produits/999999
+
+### Create a test product
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Produit test",
+  "prix": 10,
+  "stock": 2,
+  "categorie": "Test"
+}
+
+### Update the test product
+PUT http://localhost:3000/api/produits/4
+Content-Type: application/json
+
+{
+  "nom": "Produit test modifié",
+  "prix": 15,
+  "stock": 3,
+  "categorie": "Test"
+}
+
+### Reject an invalid product
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "   ",
+  "prix": -5,
+  "stock": 1.5,
+  "categorie": ""
+}
+
+### Delete the test product
+DELETE http://localhost:3000/api/produits/4
+
+### Update a product that does not exist
+PUT http://localhost:3000/api/produits/999999
+Content-Type: application/json
+
+{
+  "nom": "Produit absent",
+  "prix": 10,
+  "stock": 2,
+  "categorie": "Test"
+}
+
+### Reject an incomplete replacement
+PUT http://localhost:3000/api/produits/1
+Content-Type: application/json
+
+{
+  "prix": 100
+}
+
+### PUT with an invalid ID
+PUT http://localhost:3000/api/produits/abc
+Content-Type: application/json
+
+{
+  "nom": "Test",
+  "prix": 10,
+  "stock": 2,
+  "categorie": "Test"
+}
+
+### DELETE with an invalid ID
+DELETE http://localhost:3000/api/produits/abc
+
+### C8 - Create Ecran
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Écran",
+  "prix": 399.99,
+  "stock": 10,
+  "categorie": "Informatique"
+}
+
+### C8 - POST without nom
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "prix": 399.99,
+  "stock": 10,
+  "categorie": "Informatique"
+}
+
+### C8 - POST with negative prix
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Écran",
+  "prix": -5,
+  "stock": 10,
+  "categorie": "Informatique"
+}
+
+### C8 - POST with decimal stock
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Écran",
+  "prix": 399.99,
+  "stock": 2.5,
+  "categorie": "Informatique"
+}
+
+### C8 - PUT product 1 with valid data
+PUT http://localhost:3000/api/produits/1
+Content-Type: application/json
+
+{
+  "nom": "Laptop",
+  "prix": 1200,
+  "stock": 5,
+  "categorie": "Informatique"
+}
+### C8 - Delete Ecran
+DELETE http://localhost:3000/api/produits/5
+
+### C8 - List products
+GET http://localhost:3000/api/produits
+
+### C8 - GET unknown ID 999
+GET http://localhost:3000/api/produits/999
+
+### C8 - PUT unknown ID 999
+PUT http://localhost:3000/api/produits/999
+Content-Type: application/json
+
+{
+  "nom": "Écran",
+  "prix": 399.99,
+  "stock": 10,
+  "categorie": "Informatique"
+}
+### Create a product to test cache clearing
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Test cache",
+  "prix": 10,
+  "stock": 2,
+  "categorie": "Test"
+}
+### Delete test product 6
+DELETE http://localhost:3000/api/produits/6
+
+### Delete test product 7
+DELETE http://localhost:3000/api/produits/7
+
+### Test broken JSON
+POST http://localhost:3000/api/produits
+Content-Type: application/json
+
+{
+  "nom": "Test"
+  "prix": 10
+}
+
+### Ajouter une visite
+POST http://localhost:3000/api/visites

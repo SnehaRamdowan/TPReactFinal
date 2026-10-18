@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",                // Version JS générée
+    "module": "NodeNext", // Système de modules (ESM moderne)
+    "moduleResolution": "NodeNext",
+    "rootDir": "./src",                 // Dossier source
+    "outDir": "./dist",                 // Dossier généré
+    "strict": true,                  // ✅ Activé par défaut en TS 6+
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true, // Import de types explicites
+    "erasableSyntaxOnly": true   // TS 5.8+ : syntaxe compatible Node
+  },
+  "include": ["src"]
+}
