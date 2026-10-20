@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: techtrends-api
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./api-produits/Dockerfile
+    dockerContext: ./api-produits
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: techtrends-db
+          property: connectionString
+
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: techtrends-redis
+          property: connectionString
+
+      - key: CORS_ORIGIN
+        value: https://tp-react-plum.vercel.app
+
+  - type: keyvalue
+    name: techtrends-redis
+    plan: free
+    region: oregon
+    ipAllowList: []
+    maxmemoryPolicy: allkeys-lru
+
+databases:
+  - name: techtrends-db
+    plan: free
+    region: oregon
+    postgresMajorVersion: "16"
+    databaseName: techtrends_5uym
+    user: sne
+    ipAllowList: []
