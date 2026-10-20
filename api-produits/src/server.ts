@@ -58,17 +58,26 @@ app.get("/api/arch", async (_req, res) => {
     });
 });
 
-app.use("/api/produits", routerProduits);
+app.use(
+    ["/api/products", "/api/produits"],
+    routerProduits
+);
 
-app.post("/api/visites", async (_req, res) => {
-    const total = await ajouterVisite();
-    res.status(200).json({ total });
-});
+app.post(
+    ["/api/visit", "/api/visites"],
+    async (_req, res) => {
+        const total = await ajouterVisite();
+        res.status(200).json({ total });
+    }
+);
 
-app.get("/api/visites", async (_req, res) => {
-    const total = await obtenirVisites();
-    res.status(200).json({ total });
-});
+app.get(
+    ["/api/visit", "/api/visites"],
+    async (_req, res) => {
+        const total = await obtenirVisites();
+        res.status(200).json({ total });
+    }
+);
 
 app.use("/api/orders", routerCommandes);
 
