@@ -9,6 +9,7 @@ services:
       - "127.0.0.1:15432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
@@ -48,5 +49,24 @@ services:
       redis:
         condition: service_healthy
 
+  client:
+    image: node:24-alpine
+    working_dir: /app
+    ports:
+      - "127.0.0.1:5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3000
+    volumes:
+      - ../../TPReact/techtrends-react:/app
+      - client_modules:/app/node_modules
+    command:
+      - sh
+      - -c
+      - npm ci && npm run dev -- --host 0.0.0.0 --port 5173 --strictPort
+    depends_on:
+      api:
+        condition: service_started
+
 volumes:
   pgdata:
+  client_modules:

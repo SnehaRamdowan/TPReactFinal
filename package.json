@@ -1,10 +1,11 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "tp3",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "TechTrends application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "private": true
+    "start": "docker compose --env-file api-produits/.env -f api-produits/docker-compose.yml up -d --build",
+    "stop": "docker compose --env-file api-produits/.env -f api-produits/docker-compose.yml stop",
+    "logs": "docker compose --env-file api-produits/.env -f api-produits/docker-compose.yml logs -f"
+  }
 }
