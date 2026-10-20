@@ -10,7 +10,12 @@ client.on("error", (erreur: Error) => {
     console.warn("Redis indisponible :", erreur.message);
 });
 
-await client.connect();
+void client.connect().catch((erreur: unknown) => {
+    console.warn(
+        "Connexion Redis impossible :",
+        erreur instanceof Error ? erreur.message : erreur
+    );
+});
 
 export type SourceCache = "hit" | "miss" | "bypass";
 
@@ -29,7 +34,7 @@ export async function lireCache<T>(
 export async function mettreEnCache<T>(
     cle: string,
     valeur: T,
-    ttlSec: number = 60
+    ttlSec: number = 30
 ): Promise<void> {
     await client.setEx(
         cle,
@@ -116,4 +121,44 @@ export async function ajouterVisite(): Promise<number> {
 export async function obtenirVisites(): Promise<number> {
     const total = await client.get("visites");
     return Number(total ?? 0);
+}
+
+export async function ajouterCommande(): Promise<number | null> {
+    if (!client.isReady) {
+        return null;
+    }
+
+    try {
+        return await client.incr("commandes");
+    } catch {
+        console.warn("Redis : compteur de commandes indisponible");
+        return null;
+    }
+}
+
+export async function obtenirCommandes(): Promise<number | null> {
+    if (!client.isReady) {
+        return null;
+    }
+
+    try {
+        const total = await client.get("commandes");
+        return Number(total ?? 0);
+    } catch {
+        console.warn("Redis : lecture du compteur impossible");
+        return null;
+    }
+}
+
+export async function verifierRedis(): Promise<boolean> {
+    if (!client.isReady) {
+        return false;
+    }
+
+    try {
+        const reponse = await client.ping();
+        return reponse === "PONG";
+    } catch {
+        return false;
+    }
 }

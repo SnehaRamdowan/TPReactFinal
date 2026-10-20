@@ -17,7 +17,7 @@ export async function listeProduits(
 ): Promise<void> {
     const resultat = await avecCache(
         "produits",
-        60,
+        30,
         obtenirProduits
     );
 

@@ -41,6 +41,7 @@ services:
       DATABASE_URL: postgres://${POSTGRES_USER:?Configurer .env}:${POSTGRES_PASSWORD:?Configurer .env}@db:5432/${POSTGRES_DB:?Configurer .env}
       REDIS_URL: redis://redis:6379
       PORT: 3000
+      CORS_ORIGIN: "${CORS_ORIGIN:-http://localhost:5173,http://localhost:5174}"
     depends_on:
       db:
         condition: service_healthy
