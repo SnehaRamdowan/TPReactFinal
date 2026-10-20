@@ -21,6 +21,7 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 COPY --from=build /app/dist ./dist
+COPY database.sql ./database.sql
 
 EXPOSE 3000
 
